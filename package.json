@@ -1,0 +1,26 @@
+{
+  "name": "finance-data-processing-and-access-control-backend",
+  "version": "1.0.0",
+  "description": "Backend for finance data processing and access control",
+  "type": "module",
+  "main": "./src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GovindKumar04/Finance-Data-Processing-and-Access-Control-Backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GovindKumar04/Finance-Data-Processing-and-Access-Control-Backend/issues"
+  },
+  "homepage": "https://github.com/GovindKumar04/Finance-Data-Processing-and-Access-Control-Backend#readme",
+  "license": "ISC",
+  "author": "",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.16.3"
+  }
+}
