@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { authorizeRoles } from "../middlewares/role.middleware.js";
+import { requirePermission } from "../middlewares/role.middleware.js";
 import {
   createRecord,
   getAllRecords,
@@ -8,7 +8,7 @@ import {
   updateRecord,
   deleteRecord,
 } from "../controllers/record.controller.js";
-import { USER_ROLES } from "../utils/constants.js";
+import { PERMISSIONS } from "../utils/constants.js";
 
 const router = Router();
 
@@ -16,31 +16,31 @@ router.use(verifyJWT);
 
 router.get(
   "/",
-  authorizeRoles(USER_ROLES.ADMIN, USER_ROLES.ANALYST),
+  requirePermission(PERMISSIONS.RECORDS_READ),
   getAllRecords
 );
 
 router.get(
   "/:id",
-  authorizeRoles(USER_ROLES.ADMIN, USER_ROLES.ANALYST),
+  requirePermission(PERMISSIONS.RECORDS_READ),
   getRecordById
 );
 
 router.post(
   "/",
-  authorizeRoles(USER_ROLES.ADMIN),
+  requirePermission(PERMISSIONS.RECORDS_CREATE),
   createRecord
 );
 
 router.patch(
   "/:id",
-  authorizeRoles(USER_ROLES.ADMIN),
+  requirePermission(PERMISSIONS.RECORDS_UPDATE),
   updateRecord
 );
 
 router.delete(
   "/:id",
-  authorizeRoles(USER_ROLES.ADMIN),
+  requirePermission(PERMISSIONS.RECORDS_DELETE),
   deleteRecord
 );
 

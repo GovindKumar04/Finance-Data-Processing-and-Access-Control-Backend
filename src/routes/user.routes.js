@@ -1,22 +1,40 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { authorizeRoles } from "../middlewares/role.middleware.js";
+import { requirePermission } from "../middlewares/role.middleware.js";
 import {
   getAllUsers,
   getUserById,
   updateUserRole,
   updateUserStatus,
 } from "../controllers/user.controller.js";
-import { USER_ROLES } from "../utils/constants.js";
+import { PERMISSIONS } from "../utils/constants.js";
 
 const router = Router();
 
 router.use(verifyJWT);
-router.use(authorizeRoles(USER_ROLES.ADMIN));
 
-router.get("/", getAllUsers);
-router.get("/:id", getUserById);
-router.patch("/:id/role", updateUserRole);
-router.patch("/:id/status", updateUserStatus);
+router.get(
+  "/",
+  requirePermission(PERMISSIONS.USERS_READ),
+  getAllUsers
+);
+
+router.get(
+  "/:id",
+  requirePermission(PERMISSIONS.USERS_READ_ONE),
+  getUserById
+);
+
+router.patch(
+  "/:id/role",
+  requirePermission(PERMISSIONS.USERS_UPDATE_ROLE),
+  updateUserRole
+);
+
+router.patch(
+  "/:id/status",
+  requirePermission(PERMISSIONS.USERS_UPDATE_STATUS),
+  updateUserStatus
+);
 
 export default router;
