@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import recordRoutes from "./routes/record.routes.js";
 import pool from "./config/db.js";
 
 const app = express();
@@ -33,5 +34,6 @@ app.get("/api/health/db", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/records", recordRoutes);
 
 export default app;
