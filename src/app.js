@@ -4,6 +4,7 @@ import userRoutes from "./routes/user.routes.js";
 import recordRoutes from "./routes/record.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import pool from "./config/db.js";
+import { notFoundHandler, errorHandler } from "./middlewares/error.middleware.js";
 
 const app = express();
 
@@ -37,5 +38,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/records", recordRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;
